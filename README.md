@@ -2,10 +2,15 @@
 
 WordPress + Docker Compose = ❤️
 
+This stack includes the following components:
+- WordPress
+- MySQL (MariaDB)
+- PHPMyAdmin
+
 ### DEPENDENCIES
 
-- Docker
-- Docker Compose
+- Docker >= `18.09.1, build 4c52b90`
+- Docker Compose >= `version 1.22.0, build f46880fe`
 
 ### BRING UP THE STACK
 
