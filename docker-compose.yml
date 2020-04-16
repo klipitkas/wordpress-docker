@@ -1,51 +1,40 @@
-version: '3.5'
+version: '3.7'
 
 services:
 
   wordpress:
-    image: "wordpress"
+    image: wordpress
     depends_on:
-      - mariadb
+      - database
     networks:
-      wpnet:
-        ipv4_address: "10.15.0.2"
-        aliases:
-          - "wp"
+      wpnet: {}
     environment:
-      - "WORDPRESS_DB_HOST=10.15.0.4"
+      - "WORDPRESS_DB_HOST=database"
       - "WORDPRESS_DB_USER=wordpress"
       - "WORDPRESS_DB_PASSWORD=wordpress"
       - "WORDPRESS_DB_NAME=wordpress"
       - "WORDPRESS_DEBUG=1"
     ports:
-      - "8080:80"
+      - "80:80"
     volumes:
-      - "./html:/var/www/html"
+      - "./wordpress:/var/www/html"
 
   phpmyadmin:
     image: "nazarpc/phpmyadmin"
     depends_on:
-      - mariadb
+      - database
     networks:
-      wpnet:
-        ipv4_address: "10.15.0.3"
-        aliases:
-          - "pma"
+      wpnet: {}
     environment:
-      - "MYSQL_HOST=10.15.0.4:3306"
-      - "UPLOAD_SIZE=10G"
-      - "MYSQL_ROOT_PASSWORD=root"
+      - "MYSQL_HOST=database"
+      - "UPLOAD_SIZE=2G"
     ports:
-      - "8081:80"
-  
-  mariadb:
-    image: "mariadb"
+      - "8080:80"
+
+  database:
+    image: mysql:5.7
     networks:
-      wpnet:
-        ipv4_address: "10.15.0.4"
-        aliases:
-          - "db"
-          - "mysql"
+      wpnet: {}
     environment:
       - "MYSQL_ROOT_PASSWORD=root"
       - "MYSQL_USER=wordpress"
@@ -58,8 +47,3 @@ services:
 
 networks:
   wpnet:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: "10.15.0.0/16"

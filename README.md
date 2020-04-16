@@ -4,7 +4,7 @@ WordPress + Docker Compose = ❤️
 
 This stack includes the following components:
 - WordPress
-- MySQL (MariaDB)
+- MySQL 5.7
 - PHPMyAdmin
 
 ### DEPENDENCIES
@@ -24,33 +24,47 @@ $ docker-compose up -d
 $ docker-compose down
 ```
 
-### ACCESS
+### WORDPRESS ACCESS
 
+You can access the WordPress installation at:
 
-**WordPress**
+- http://localhost
 
-- URL: http://localhost:8080
-- Database Name: **wordpress**
-- Database User: **wordpress**
-- Database Password: **wordpress**
+The administrative URL can be found at:
 
-**PHPMyAdmin**
+- http://localhost/wp-admin
 
-- URL: http://localhost:8081
+### DATABASE ACCESS
 
-**MySQL (via shell)**
+To access the database you can use PHPMyAdmin at:
+
+- http://localhost:8080
+
+The credentials are the following:
+
+- Username: **wordpress**
+- Password: **wordpress**
+- Database: **wordpress**
+
+or for the root account:
+
+- Username: **root**
+- Password: **root**
+
+You can also access the database from within the container:
 
 ```bash
-$ mysql -uroot -proot -h 10.15.0.4
+$ docker-compose exec database bash
+$ mysql -u wordpress -pwordpress wordpress
 ```
 
 ### VOLUMES
 
 All changes are saved in the following volumes:
 
-- **database**: The database changes.
-- **html**: The changes in wordpress html or php code.
+- **database**: The database volume, containing everything MySQL.
+- **wordpress**: The wordpress volume, containing all the files needed for WordPress.
 
-### BUGS + ISSUES
+### BUGS & ISSUES
 
 Send them to klipitkas@gmail.com or [open an issue](https://github.com/klipitkas/wordpress-docker/issues/new).
