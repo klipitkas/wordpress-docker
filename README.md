@@ -3,6 +3,7 @@
 WordPress + Docker Compose = ❤️
 
 This stack includes the following components:
+
 - WordPress
 - MySQL 5.7
 - PHPMyAdmin
@@ -12,16 +13,40 @@ This stack includes the following components:
 - Docker >= `18.09.1, build 4c52b90`
 - Docker Compose >= `version 1.22.0, build f46880fe`
 
+### START
+
+Clone this repository:
+
+```bash
+git clone git@github.com:klipitkas/wordpress-docker.git
+```
+
 ### BRING UP THE STACK
 
 ```bash
+$ cd wordpress-docker
 $ docker-compose up -d
 ```
 
-### STOP THE STACK
+### BRING DOWN THE STACK
 
 ```bash
 $ docker-compose down
+```
+
+### MULTIPLE WORDPRESS INSTALLATIONS
+
+For multiple WordPress installations the easiest approach would be to copy the cloned directory and name it appropriately:
+
+```bash
+$ cp -r wordpress-docker project-name
+$ cd project-name
+```
+
+Cleanup the previous project files in order to start fresh:
+
+```bash
+$ bash clean.sh
 ```
 
 ### WORDPRESS ACCESS
@@ -62,7 +87,7 @@ $ mysql -u wordpress -pwordpress wordpress
 
 All changes are saved in the following volumes:
 
-- **database**: The database volume, containing everything MySQL.
+- **database**: The database volume, containing everything MySQL related.
 - **wordpress**: The wordpress volume, containing all the files needed for WordPress.
 
 ### BUGS & ISSUES
